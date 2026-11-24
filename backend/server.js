@@ -18,6 +18,6 @@ app.get('/api/ping' , (req,res) => {
 
 initPool().then(() =>{
     app.listen(PORT, () =>{
-        console.log('Server ScrimSync berjalan di http://localhost:${PORT}');
+        console.log(`Server ScrimSync berjalan di http://localhost:${PORT}`);
     });
 });
