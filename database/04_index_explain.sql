@@ -13,7 +13,7 @@ SELECT id_antrean, id_pengguna, role_pilihan, mmr_saat_ini
 FROM Antrean_Matchmaking
 WHERE status_antrean = 'MENUNGGU'
   AND role_pilihan = 'JUNGLER'
-  AND mmr_saat_ini BETWEEN 1200 AND 1600;
+  AND mmr_saat_ini BETWEEN 1450 AND 1500;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 
@@ -21,9 +21,13 @@ SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 CREATE INDEX idx_antrean_match
 ON Antrean_Matchmaking (status_antrean, role_pilihan, mmr_saat_ini);
 
--- Perbarui statistik agar Oracle Optimizer langsung mengenali index baru
+-- Perbarui statistik tabel dan index sekaligus
 BEGIN
-    DBMS_STATS.GATHER_TABLE_STATS(USER, 'ANTREAN_MATCHMAKING');
+    DBMS_STATS.GATHER_TABLE_STATS(
+        ownname => USER,
+        tabname => 'ANTREAN_MATCHMAKING',
+        cascade => TRUE
+    );
 END;
 /
 
@@ -34,6 +38,6 @@ SELECT id_antrean, id_pengguna, role_pilihan, mmr_saat_ini
 FROM Antrean_Matchmaking
 WHERE status_antrean = 'MENUNGGU'
   AND role_pilihan = 'JUNGLER'
-  AND mmr_saat_ini BETWEEN 1200 AND 1600;
+  AND mmr_saat_ini BETWEEN 1450 AND 1500;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
