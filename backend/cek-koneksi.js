@@ -10,7 +10,7 @@ async function tesKoneksi() {
     } catch (err){
         console.error('Tes koneksi gagal! ', err);
     } finally {
-      if (conn){
+    if (conn){
         try{
             await conn.close();
             console.log('Koneksi berhasil ditutup! ');
